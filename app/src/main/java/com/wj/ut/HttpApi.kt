@@ -13,7 +13,7 @@ class HttpApi {
         println("start to login .....")
         delay(1000)
         println("finish to login .....")
-        return when (userName) {
+        return when (password) {
             "123456" -> 0
             "12345678" -> 1
             "123" -> 401

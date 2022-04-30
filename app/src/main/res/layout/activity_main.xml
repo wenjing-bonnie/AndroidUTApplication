@@ -7,37 +7,49 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="password 123456 -> 0, 12345678 -> 1, 123 -> 401"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/tv_response"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="login result is "
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_info" />
+
+    <EditText
+        android:id="@+id/et_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="input user name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_response" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="input password"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_username" />
 
     <Button
         android:id="@+id/btn_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:onClick="btnFirst"
-        android:text="button1"
+        android:text="login"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_response" />
-
-    <Button
-        android:id="@+id/btn_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="btnSecond"
-        android:text="button1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_first" />
-
-    <Button
-        android:id="@+id/btn_third"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="btnThird"
-        android:text="button1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_second" />
+        app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
