@@ -18,6 +18,12 @@ class LoginViewModel(private val api: HttpApi, private val dispatcher: Coroutine
         get() = viewState
 
     fun login(userName: Editable?, password: Editable?) {
+        when (userName.toString()) {
+            "vip" -> {
+                viewState.value = ViewState.VipUser
+                return
+            }
+        }
         viewModelScope.launch(dispatcher) {
             val response = api.login(userName.toString(), password.toString())
             println("The receiver the response is $response")
@@ -35,6 +41,7 @@ class LoginViewModel(private val api: HttpApi, private val dispatcher: Coroutine
         object LoginFailure : ViewState()
         object LoginError401 : ViewState()
         data class InvalidPassword(val error: String) : ViewState()
+        object VipUser : ViewState()
     }
 
 }
