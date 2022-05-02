@@ -16,6 +16,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.powermock.reflect.Whitebox
+import kotlin.test.assertEquals
 
 /**
  * created by wenjing.liu at 2022/4/30
@@ -65,6 +67,28 @@ class LoginViewModelTest {
     }
 
     @Test
+    fun testIsValidPassword() {
+        every {
+            api["isValidPassword"]("123456")
+        } returns true
+        InternalPlatformDsl.dynamicSetField(api, "tag", "123456")
+        assertEquals("123456", InternalPlatformDsl.dynamicGet(api, "tag"))
+        InternalPlatformDsl.dynamicSetField(viewModel, "tag", "321")
+        assertEquals("321", InternalPlatformDsl.dynamicGet(viewModel, "tag"))
+        assert(
+            InternalPlatformDsl.dynamicCall(
+                api,
+                "isValidPassword",
+                arrayOf("123456"),
+                mockk()
+            ) as Boolean
+        )
+        verify {
+            api["isValidPassword"]("123456")
+        }
+    }
+
+    @Test
     fun testVipUser() {
         every {
             userEditable.toString()
@@ -108,13 +132,13 @@ class LoginViewModelTest {
         } returns "12345678"
         runBlockingTest(dispatcher) {
             coEvery {
-                api.login(userEditable.toString(), passwordEditable.toString())
+                api.login("123", "12345678")
             } returns 1
             viewModel.login(userEditable, passwordEditable)
             assert(viewModel.getViewState.value is LoginViewModel.ViewState.LoginFailure)
         }
         coVerify {
-            api.login(userEditable.toString(), passwordEditable.toString())
+            api.login("123", "12345678")
         }
     }
 
@@ -128,13 +152,13 @@ class LoginViewModelTest {
         } returns "123"
         runBlockingTest(dispatcher) {
             coEvery {
-                api.login(userEditable.toString(), passwordEditable.toString())
+                api.login("123", "123")
             } returns 401
             viewModel.login(userEditable, passwordEditable)
             assert(viewModel.getViewState.value is LoginViewModel.ViewState.LoginError401)
         }
         coVerify {
-            api.login(userEditable.toString(), passwordEditable.toString())
+            api.login("123", "123")
         }
     }
 
@@ -148,13 +172,14 @@ class LoginViewModelTest {
         } returns "12323243"
         runBlockingTest(dispatcher) {
             coEvery {
-                api.login(userEditable.toString(), passwordEditable.toString())
+                api.login("123", "12323243")
             } returns 10000
             viewModel.login(userEditable, passwordEditable)
             assert(viewModel.getViewState.value is LoginViewModel.ViewState.InvalidPassword)
+            println(Whitebox.getInternalState(viewModel.getViewState.value, "error") as String)
         }
         coVerify {
-            api.login(userEditable.toString(), passwordEditable.toString())
+            api.login("123", "12323243")
         }
     }
 

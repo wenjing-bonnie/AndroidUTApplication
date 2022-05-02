@@ -42,14 +42,18 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     testImplementation 'io.mockk:mockk:1.12.3'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test:1.5.31'
     //协程相关
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2'
     //含有两个Junit规则：InstantTaskExecutorRule：强制架构组件立即执行调用线程上的任何后台操作
     //CountingTaskExecutorRule:用于Instrumentation测试，等待架构组件的后台操作或将其连接到Espresso作为闲置资源
     //为了测试LiveData
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    //whitebox
+    testImplementation 'org.powermock:powermock-reflect:2.0.9'
     //
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+
 }

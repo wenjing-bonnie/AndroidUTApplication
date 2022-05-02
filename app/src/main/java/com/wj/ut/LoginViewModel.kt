@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
  */
 class LoginViewModel(private val api: HttpApi, private val dispatcher: CoroutineDispatcher) :
     ViewModel() {
+    private var tag = "123"
     private var viewState = MutableLiveData<ViewState>()
     val getViewState: LiveData<ViewState>
         get() = viewState
